@@ -130,7 +130,7 @@
 										"source": {
 											"type": "SqlServerSource",
 											"sqlReaderQuery": {
-												"value": "SELECT [BusinessEntityID],[NationalIDNumber] ,[LoginID],[OrganizationNode],[OrganizationLevel],[JobTitle],[BirthDate],[MaritalStatus],[Gender] ,[HireDate] ,[SalariedFlag] ,[VacationHours] ,[SickLeaveHours] ,[CurrentFlag] ,[rowguid] ,[ModifiedDate] FROM [HumanResources].[Employee] where [BusinessEntityID] in (select [BusinessEntityID] from [HumanResources].[EmployeeDepartmentHistory] where [DepartmentID]= @{item().DepartmentID})",
+												"value": "select BusinessEntityID, NationalIDNumber,LoginID,OrganizationNode,OrganizationLevel,JobTitle,BirthDate,MaritalStatus,Gender,HireDate,SalariedFlag,VacationHours from humanresources.employee where businessentityid in(select businessentityid from humanresources.employeedepartmenthistory where departmentid=@{item().departmentid})",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
