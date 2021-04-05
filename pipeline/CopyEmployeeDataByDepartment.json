@@ -1,20 +1,52 @@
 {
-	"name": "pipeline1",
+	"name": "CopyEmployeeDataByDepartment",
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
-				"type": "ForEach",
+				"name": "Lookup Department Table",
+				"type": "Lookup",
 				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SqlServerTable1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For Each Activity",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Department Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.sheetnames",
+						"value": "@activity('Lookup Department Table').output.value",
 						"type": "Expression"
 					},
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "Copy Employee Data",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -27,15 +59,17 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "ExcelSource",
-									"storeSettings": {
-										"type": "FileServerReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									}
+									"type": "SqlServerSource",
+									"sqlReaderQuery": {
+										"value": "select e.BusinessEntityID, e.JobTitle, e.BirthDate, e.HireDate, e.MaritalStatus, d.departmentid from HumanResources.Employee as e inner join HumanResources.EmployeeDepartmentHistory as d on e.BusinessEntityID = d.BusinessEntityID where DepartmentID=@{item().DepartmentID}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "AzureSqlSink"
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
 								},
 								"enableStaging": false,
 								"translator": {
@@ -49,23 +83,17 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ExcelSalesDatasetLookUp",
-									"type": "DatasetReference",
-									"parameters": {
-										"sheet": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "EmployeeDatasetOnPrim",
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable1",
+									"referenceName": "AzureSqlTableEmployeeDataset",
 									"type": "DatasetReference",
 									"parameters": {
 										"tablename": {
-											"value": "@item()",
+											"value": "@item().Name",
 											"type": "Expression"
 										}
 									}
@@ -76,18 +104,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"sheetnames": {
-				"type": "array",
-				"defaultValue": [
-					"Customer",
-					"Product",
-					"Orders",
-					"Location",
-					"Order_Details"
-				]
-			}
-		},
 		"annotations": []
 	}
 }
