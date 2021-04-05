@@ -8,19 +8,10 @@
 		"AzureBlobStorageLS_connectionString": {
 			"value": ""
 		},
+		"AzureSqlDatabaseEmptyLS_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabaseLS_connectionString": {
-			"value": ""
-		},
-		"SqlServerLS_connectionString": {
-			"value": ""
-		},
-		"SqlServerLS_password": {
-			"value": ""
-		},
-		"SqlServerDatabaseLS_connectionString": {
-			"value": ""
-		},
-		"SqlServerDatabaseLS_password": {
 			"value": ""
 		},
 		"AzureSqlLS_connectionString": {
@@ -29,19 +20,28 @@
 		"FileServerLS_password": {
 			"value": ""
 		},
-		"AzureSqlDatabaseEmptyLS_connectionString": {
+		"SqlServerDatabaseLS_connectionString": {
 			"value": ""
 		},
-		"SqlServerLS_properties_typeProperties_userName": {
-			"value": "gayat"
+		"SqlServerDatabaseLS_password": {
+			"value": ""
 		},
-		"SqlServerDatabaseLS_properties_typeProperties_userName": {
-			"value": "gayat"
+		"SqlServerLS_connectionString": {
+			"value": ""
+		},
+		"SqlServerLS_password": {
+			"value": ""
 		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
 		"FileServerLS_properties_typeProperties_userId": {
+			"value": "gayat"
+		},
+		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"value": "gayat"
+		},
+		"SqlServerLS_properties_typeProperties_userName": {
 			"value": "gayat"
 		},
 		"containerUri": {

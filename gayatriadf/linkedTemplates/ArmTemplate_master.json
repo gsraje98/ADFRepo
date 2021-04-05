@@ -11,25 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLS'"
 		},
+		"AzureSqlDatabaseEmptyLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseEmptyLS'"
+		},
 		"AzureSqlDatabaseLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLS'"
-		},
-		"SqlServerLS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServerLS'"
-		},
-		"SqlServerLS_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServerLS'"
-		},
-		"SqlServerDatabaseLS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServerDatabaseLS'"
-		},
-		"SqlServerDatabaseLS_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServerDatabaseLS'"
 		},
 		"AzureSqlLS_connectionString": {
 			"type": "secureString",
@@ -39,11 +27,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServerLS'"
 		},
-		"AzureSqlDatabaseEmptyLS_connectionString": {
+		"SqlServerDatabaseLS_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseEmptyLS'"
+			"metadata": "Secure string for 'connectionString' of 'SqlServerDatabaseLS'"
 		},
-		"SqlServerLS_properties_typeProperties_userName": {
+		"SqlServerDatabaseLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServerDatabaseLS'"
+		},
+		"SqlServerLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerLS'"
+		},
+		"SqlServerLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServerLS'"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "gayat"
 		},
@@ -51,11 +55,7 @@
 			"type": "string",
 			"defaultValue": "gayat"
 		},
-		"FileServerLS_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "E:\\LTI Training\\ADF"
-		},
-		"FileServerLS_properties_typeProperties_userId": {
+		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
 		},
@@ -89,20 +89,17 @@
 					"AzureBlobStorageLS_connectionString": {
 						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
 					},
+					"AzureSqlDatabaseEmptyLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
+					},
 					"AzureSqlDatabaseLS_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseLS_connectionString')]"
 					},
 					"AzureSqlLS_connectionString": {
 						"value": "[parameters('AzureSqlLS_connectionString')]"
 					},
-					"AzureSqlDatabaseEmptyLS_connectionString": {
-						"value": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
-					},
-					"SqlServerLS_connectionString": {
-						"value": "[parameters('SqlServerLS_connectionString')]"
-					},
-					"SqlServerLS_password": {
-						"value": "[parameters('SqlServerLS_password')]"
+					"FileServerLS_password": {
+						"value": "[parameters('FileServerLS_password')]"
 					},
 					"SqlServerDatabaseLS_connectionString": {
 						"value": "[parameters('SqlServerDatabaseLS_connectionString')]"
@@ -110,20 +107,23 @@
 					"SqlServerDatabaseLS_password": {
 						"value": "[parameters('SqlServerDatabaseLS_password')]"
 					},
-					"FileServerLS_password": {
-						"value": "[parameters('FileServerLS_password')]"
+					"SqlServerLS_connectionString": {
+						"value": "[parameters('SqlServerLS_connectionString')]"
 					},
-					"SqlServerLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
-					},
-					"SqlServerDatabaseLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
+					"SqlServerLS_password": {
+						"value": "[parameters('SqlServerLS_password')]"
 					},
 					"FileServerLS_properties_typeProperties_host": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
 					},
 					"FileServerLS_properties_typeProperties_userId": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
+					},
+					"SqlServerDatabaseLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
+					},
+					"SqlServerLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
