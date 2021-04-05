@@ -49,10 +49,10 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ExcelSalesDatasetLookUp",
+									"referenceName": "ExcelDataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"sheet": {
+										"sheetname": {
 											"value": "@item()",
 											"type": "Expression"
 										}
