@@ -26,10 +26,22 @@
 		"AzureSqlLS_connectionString": {
 			"value": ""
 		},
+		"FileServerLS_password": {
+			"value": ""
+		},
+		"AzureSqlDatabaseEmptyLS_connectionString": {
+			"value": ""
+		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"value": "gayat"
 		},
 		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"value": "gayat"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"value": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
 			"value": "gayat"
 		},
 		"containerUri": {

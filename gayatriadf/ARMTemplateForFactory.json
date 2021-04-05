@@ -35,11 +35,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlLS'"
 		},
+		"FileServerLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServerLS'"
+		},
+		"AzureSqlDatabaseEmptyLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseEmptyLS'"
+		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
 		},
 		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "gayat"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "gayat"
 		}
@@ -498,13 +514,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/CopyEmployeeDataByDepartment')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup1",
+						"name": "Lookup Department Table",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -530,11 +546,11 @@
 						}
 					},
 					{
-						"name": "ForEach1",
+						"name": "For Each Activity",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup1",
+								"activity": "Lookup Department Table",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -543,12 +559,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Lookup1').output.value",
+								"value": "@activity('Lookup Department Table').output.value",
 								"type": "Expression"
 							},
 							"activities": [
 								{
-									"name": "Copy data1",
+									"name": "Copy Employee Data",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -807,6 +823,204 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.sheetnames",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ExcelSource",
+											"storeSettings": {
+												"type": "FileServerReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink"
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ExcelSalesDatasetLookUp",
+											"type": "DatasetReference",
+											"parameters": {
+												"sheet": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "AzureSqlTable1",
+											"type": "DatasetReference",
+											"parameters": {
+												"tablename": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"parameters": {
+					"sheetnames": {
+						"type": "array",
+						"defaultValue": [
+							"Customer",
+							"Product",
+							"Orders",
+							"Location",
+							"Order_Details"
+						]
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ExcelSalesDatasetLookUp')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FileServerLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('FileServerLS_properties_typeProperties_host')]",
+					"userId": "[parameters('FileServerLS_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('FileServerLS_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "OnPremIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ExcelSalesDatasetLookUp')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "FileServerLS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"sheet": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().sheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "SalesData"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/FileServerLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseEmptyLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseEmptyLS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tablename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseEmptyLS')]"
 			]
 		}
 	]

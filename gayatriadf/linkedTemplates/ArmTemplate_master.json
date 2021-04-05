@@ -35,11 +35,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlLS'"
 		},
+		"FileServerLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServerLS'"
+		},
+		"AzureSqlDatabaseEmptyLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseEmptyLS'"
+		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
 		},
 		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "gayat"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "gayat"
 		},
@@ -79,6 +95,9 @@
 					"AzureSqlLS_connectionString": {
 						"value": "[parameters('AzureSqlLS_connectionString')]"
 					},
+					"AzureSqlDatabaseEmptyLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
+					},
 					"SqlServerLS_connectionString": {
 						"value": "[parameters('SqlServerLS_connectionString')]"
 					},
@@ -91,15 +110,44 @@
 					"SqlServerDatabaseLS_password": {
 						"value": "[parameters('SqlServerDatabaseLS_password')]"
 					},
+					"FileServerLS_password": {
+						"value": "[parameters('FileServerLS_password')]"
+					},
 					"SqlServerLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
 					},
 					"SqlServerDatabaseLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
+					},
+					"FileServerLS_properties_typeProperties_host": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
+					},
+					"FileServerLS_properties_typeProperties_userId": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "gayatriadf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'gayatriadf_ArmTemplate_0')]"
+			]
 		}
 	]
 }
