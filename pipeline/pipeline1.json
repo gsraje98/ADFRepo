@@ -3,45 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "SqlServerTable1",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Lookup1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup1').output.value",
+						"value": "@pipeline().parameters.sheetnames",
 						"type": "Expression"
 					},
 					"activities": [
@@ -59,17 +27,15 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "SqlServerSource",
-									"sqlReaderQuery": {
-										"value": "select e.BusinessEntityID, e.JobTitle, e.BirthDate, e.HireDate, e.MaritalStatus, d.departmentid from HumanResources.Employee as e inner join HumanResources.EmployeeDepartmentHistory as d on e.BusinessEntityID = d.BusinessEntityID where DepartmentID=@{item().DepartmentID}",
-										"type": "Expression"
-									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
+									"type": "ExcelSource",
+									"storeSettings": {
+										"type": "FileServerReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									}
 								},
 								"sink": {
-									"type": "AzureSqlSink",
-									"tableOption": "autoCreate"
+									"type": "AzureSqlSink"
 								},
 								"enableStaging": false,
 								"translator": {
@@ -83,20 +49,14 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "EmployeeDatasetOnPrim",
+									"referenceName": "ExcelSalesDatasetLookUp",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTableEmployeeDataset",
-									"type": "DatasetReference",
-									"parameters": {
-										"tablename": {
-											"value": "@item().Name",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "AzureSqlTable1",
+									"type": "DatasetReference"
 								}
 							]
 						}
@@ -104,6 +64,18 @@
 				}
 			}
 		],
+		"parameters": {
+			"sheetnames": {
+				"type": "array",
+				"defaultValue": [
+					"Customer",
+					"Product",
+					"Orders",
+					"Location",
+					"Order_Details"
+				]
+			}
+		},
 		"annotations": []
 	}
 }
