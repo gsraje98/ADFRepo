@@ -50,13 +50,25 @@
 							"inputs": [
 								{
 									"referenceName": "ExcelSalesDatasetLookUp",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"sheet": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
