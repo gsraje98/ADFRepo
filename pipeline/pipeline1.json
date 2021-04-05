@@ -90,7 +90,13 @@
 							"outputs": [
 								{
 									"referenceName": "AzureSqlTableEmployeeDataset",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": {
+											"value": "@item().Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
