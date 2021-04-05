@@ -23,6 +23,9 @@
 		"SqlServerDatabaseLS_password": {
 			"value": ""
 		},
+		"AzureSqlLS_connectionString": {
+			"value": ""
+		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"value": "gayat"
 		},

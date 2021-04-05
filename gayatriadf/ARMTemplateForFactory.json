@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerDatabaseLS'"
 		},
+		"AzureSqlLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlLS'"
+		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
@@ -559,22 +563,15 @@
 										"source": {
 											"type": "SqlServerSource",
 											"sqlReaderQuery": {
-												"value": "select * from humanresources.EmployeeDepartmentHistory where DepartmentID={@item().DepartmentID}",
+												"value": "select * from humanresources.EmployeeDepartmentHistory where DepartmentID=@{item().DepartmentID}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
 										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
+											"type": "AzureSqlSink",
+											"tableOption": "autoCreate"
 										},
 										"enableStaging": false,
 										"translator": {
@@ -595,11 +592,11 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "EmployeeOutputDataset",
+											"referenceName": "AzureSqlTableEmployeeDataset",
 											"type": "DatasetReference",
 											"parameters": {
-												"filename": {
-													"value": "@item().name",
+												"tablename": {
+													"value": "@item().Name",
 													"type": "Expression"
 												}
 											}
@@ -615,7 +612,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SqlServerTable1')]",
 				"[concat(variables('factoryId'), '/datasets/EmployeeDatasetOnPrim')]",
-				"[concat(variables('factoryId'), '/datasets/EmployeeOutputDataset')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTableEmployeeDataset')]"
 			]
 		},
 		{
@@ -768,6 +765,48 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlLS_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTableEmployeeDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlLS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tablename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlLS')]"
 			]
 		}
 	]
