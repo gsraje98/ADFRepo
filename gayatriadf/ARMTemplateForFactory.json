@@ -130,7 +130,7 @@
 										"source": {
 											"type": "SqlServerSource",
 											"sqlReaderQuery": {
-												"value": "select BusinessEntityID, NationalIDNumber,LoginID,OrganizationNode,OrganizationLevel,JobTitle,BirthDate,MaritalStatus,Gender,HireDate,SalariedFlag,VacationHours from humanresources.employee where businessentityid in(select businessentityid from humanresources.employeedepartmenthistory where departmentid=@{item().departmentid})",
+												"value": "select e.BusinessEntityID, e.JobTitle, e.BirthDate, e.HireDate, e.MaritalStatus, d.departmentid from HumanResources.Employee as e inner join HumanResources.EmployeeDepartmentHistory as d on e.BusinessEntityID = d.BusinessEntityID where DepartmentID=@{item().DepartmentID}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
