@@ -61,22 +61,15 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "select * from humanresources.EmployeeDepartmentHistory where DepartmentID={@item().DepartmentID}",
+										"value": "select * from humanresources.EmployeeDepartmentHistory where DepartmentID=@{item().DepartmentID}",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate"
 								},
 								"enableStaging": false,
 								"translator": {
@@ -96,14 +89,8 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "EmployeeOutputDataset",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "AzureSqlTableEmployeeDataset",
+									"type": "DatasetReference"
 								}
 							]
 						}
