@@ -1,0 +1,17 @@
+{
+	"name": "SqlServerLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=DESKTOP-8SNQEQV\\GAYATRI;initial catalog=AdventureWorksDW2012",
+			"userName": "gayat",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkOWNmNjdkYi02ZDY2LTRlZGQtOTYwNy1kMmY4OGY1YmRmZjAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "OnPremIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

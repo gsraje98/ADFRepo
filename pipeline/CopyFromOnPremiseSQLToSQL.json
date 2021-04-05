@@ -1,48 +1,15 @@
 {
-	"name": "CopySQLToBlobBySchema",
+	"name": "CopyFromOnPremiseSQLToSQL",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT TABLE_SCHEMA, TABLE_NAME FROM gayatrisampledb.information_schema.TABLES WHERE TABLE_TYPE = 'BASE TABLE' and TABLE_SCHEMA = 'SalesLT'",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "LookUpDataset",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Lookup1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup1').output.value",
+						"value": "@pipeline().parameters.tablenames",
 						"type": "Expression"
 					},
 					"activities": [
@@ -60,7 +27,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AzureSqlSource",
+									"type": "SqlServerSource",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -87,15 +54,11 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SampleDBSourceDataset",
+									"referenceName": "OnPrimDataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"schemaname": {
-											"value": "@item().table_schema",
-											"type": "Expression"
-										},
 										"tablename": {
-											"value": "@item().table_name",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
@@ -103,11 +66,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "SchemaOutputDataset",
+									"referenceName": "BlobStorageByPrimDataset",
 									"type": "DatasetReference",
 									"parameters": {
 										"filename": {
-											"value": "@item().table_name",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
@@ -118,8 +81,19 @@
 				}
 			}
 		],
+		"parameters": {
+			"tablenames": {
+				"type": "array",
+				"defaultValue": [
+					"DimProduct",
+					"DimProductCategory",
+					"DimProductSubcategory",
+					"FactInternetSales"
+				]
+			}
+		},
 		"annotations": [],
-		"lastPublishTime": "2021-04-05T06:34:42Z"
+		"lastPublishTime": "2021-04-05T09:35:59Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
