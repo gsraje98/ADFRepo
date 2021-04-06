@@ -43,6 +43,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerLS'"
 		},
+		"AzureSqlDatabaseSampleNewLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseSampleNewLS'"
+		},
+		"AzureSqlDatabaseTrialNewLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseTrialNewLS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\LTI Training\\ADF"
@@ -97,6 +105,12 @@
 					},
 					"AzureSqlLS_connectionString": {
 						"value": "[parameters('AzureSqlLS_connectionString')]"
+					},
+					"AzureSqlDatabaseSampleNewLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseSampleNewLS_connectionString')]"
+					},
+					"AzureSqlDatabaseTrialNewLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseTrialNewLS_connectionString')]"
 					},
 					"FileServerLS_password": {
 						"value": "[parameters('FileServerLS_password')]"

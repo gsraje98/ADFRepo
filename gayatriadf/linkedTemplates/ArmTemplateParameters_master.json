@@ -32,6 +32,12 @@
 		"SqlServerLS_password": {
 			"value": ""
 		},
+		"AzureSqlDatabaseSampleNewLS_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseTrialNewLS_connectionString": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
