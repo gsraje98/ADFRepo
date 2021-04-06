@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Lookup1",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -16,18 +16,89 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select distinct color from SalesLT.Product",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "SqlServerSourceDataset",
+					"dataset": {
+						"referenceName": "ColorDataset",
 						"type": "DatasetReference"
 					}
-				]
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "select productid,name,productname,color,standardcost from SalesLT.Product where Color=@{item()}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ProductDatasetByColor",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "JsonOutputByColor",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
 			}
 		],
 		"annotations": []
