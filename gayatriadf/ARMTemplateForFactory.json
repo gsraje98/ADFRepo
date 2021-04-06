@@ -859,7 +859,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/SCDPipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1359,7 +1359,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
+			"name": "[concat(parameters('factoryName'), '/CopySQLToJson')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1803,7 +1803,7 @@
 										"source": {
 											"type": "SqlServerSource",
 											"sqlReaderQuery": {
-												"value": "select BusinessEntityID, DepartmentID, ShiftD,StartDate,ModifiedDate from [HumanResources].[EmployeeDepartmentHistory] where DepartmentID=@{item().DepartmentID}",
+												"value": "select BusinessEntityID,DepartmentID,StartDate,ModifiedDate from [HumanResources].[EmployeeDepartmentHistory] where DepartmentID=@{item().DepartmentID}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
