@@ -47,6 +47,9 @@
 		"AzureDataLakeStorageLS_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStoreLS_servicePrincipalKey": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
@@ -64,6 +67,21 @@
 		},
 		"AzureDataLakeStorageLS_properties_typeProperties_url": {
 			"value": "https://gayatrigen2.dfs.core.windows.net"
+		},
+		"AzureDataLakeStoreLS_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://gayatrigen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStoreLS_properties_typeProperties_servicePrincipalId": {
+			"value": "219b14e3-03a7-4af9-9da1-ea30f5fd3df9"
+		},
+		"AzureDataLakeStoreLS_properties_typeProperties_tenant": {
+			"value": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakeStoreLS_properties_typeProperties_subscriptionId": {
+			"value": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName": {
+			"value": "GayatriRG"
 		},
 		"containerUri": {
 			"value": ""
