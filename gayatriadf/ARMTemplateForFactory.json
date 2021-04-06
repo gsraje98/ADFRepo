@@ -2612,7 +2612,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DimCustomerSourceDataset",
+								"referenceName": "AzureSqlTableDataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -2629,7 +2629,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DimCustomerSourceDataset')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTableDataset')]",
 				"[concat(variables('factoryId'), '/datasets/JsonOutputCustomerString')]"
 			]
 		},
@@ -2654,6 +2654,24 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTableDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseSampleNewLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseSampleNewLS')]"
 			]
 		}
 	]
