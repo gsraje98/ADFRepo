@@ -37,7 +37,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DimCustomerSourceDataset",
+						"referenceName": "AzureSqlTableDataset",
 						"type": "DatasetReference"
 					}
 				],
