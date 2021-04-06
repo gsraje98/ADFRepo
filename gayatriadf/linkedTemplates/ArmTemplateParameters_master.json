@@ -41,6 +41,9 @@
 		"SqlServerOnPremLS_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
