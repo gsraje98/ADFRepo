@@ -1,0 +1,16 @@
+{
+	"name": "Aggregatedataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseTrialNewLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "AggregateSalesTable"
+		}
+	}
+}

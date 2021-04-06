@@ -1,0 +1,22 @@
+{
+	"name": "SqlToGen1OutputDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStoreLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureDataLakeStoreLocation",
+				"folderPath": "adfData"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
