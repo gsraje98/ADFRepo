@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "OnPremSQLToGen2",
 	"properties": {
 		"activities": [
 			{
@@ -16,13 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select distinct color from SalesLT.Product",
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "select DepartmentID from [HumanResources].[Department]",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ColorDataset",
+						"referenceName": "OnPremDepartDataset",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -42,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup1').output.value",
+						"value": "@activity('Lookup1').output",
 						"type": "Expression"
 					},
 					"activities": [
@@ -60,38 +63,48 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AzureSqlSource",
+									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "select Name,ProductNumber,Color,StandardCost,ListPrice from [SalesLT].[Product] where Color=@{item().Color}",
+										"value": "select BusinessEntityID, DepartmentID, ShiftD,StartDate,ModifiedDate from [HumanResources].[EmployeeDepartmentHistory] where DepartmentID=@{item().DepartmentID}",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "JsonSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "JsonWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
 									}
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
-									"referenceName": "ProductDatasetByColor",
+									"referenceName": "OnPremDeptHistDataset",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "JsonOutputByColor",
+									"referenceName": "Gen2EmployeeDataset",
 									"type": "DatasetReference",
 									"parameters": {
 										"filename": {
-											"value": "@item().color",
+											"value": "@item().DepartmentID",
 											"type": "Expression"
 										}
 									}
