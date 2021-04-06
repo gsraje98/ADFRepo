@@ -1397,7 +1397,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Lookup1').output",
+								"value": "@activity('Lookup1').output.value",
 								"type": "Expression"
 							},
 							"activities": [
@@ -1417,7 +1417,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "select productid,name,productname,color,standardcost from SalesLT.Product where Color=@{item()}",
+												"value": "select productid,name,productname,color,standardcost from SalesLT.Product where Color=@{item().color}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
@@ -1447,7 +1447,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"filename": {
-													"value": "@item()",
+													"value": "@item().color",
 													"type": "Expression"
 												}
 											}
