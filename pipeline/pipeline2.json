@@ -24,7 +24,8 @@
 					"dataset": {
 						"referenceName": "ColorDataset",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
