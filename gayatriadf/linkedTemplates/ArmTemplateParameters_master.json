@@ -50,6 +50,9 @@
 		"AzureDataLakeStoreLS_servicePrincipalKey": {
 			"value": ""
 		},
+		"AzureDataLakegen1LS_servicePrincipalKey": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
@@ -82,6 +85,21 @@
 		},
 		"AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName": {
 			"value": "GayatriRG"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId": {
+			"value": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_tenant": {
+			"value": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_subscriptionId": {
+			"value": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
+			"value": "RohanRG"
 		},
 		"containerUri": {
 			"value": ""

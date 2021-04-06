@@ -67,6 +67,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreLS'"
 		},
+		"AzureDataLakegen1LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakegen1LS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\LTI Training\\ADF"
@@ -110,6 +114,26 @@
 		"AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "GayatriRG"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "RohanRG"
 		},
 		"containerUri": {
 			"type": "string",
@@ -165,14 +189,11 @@
 					"AzureDataLakeStoreLS_servicePrincipalKey": {
 						"value": "[parameters('AzureDataLakeStoreLS_servicePrincipalKey')]"
 					},
+					"AzureDataLakegen1LS_servicePrincipalKey": {
+						"value": "[parameters('AzureDataLakegen1LS_servicePrincipalKey')]"
+					},
 					"FileServerLS_password": {
 						"value": "[parameters('FileServerLS_password')]"
-					},
-					"SqlServerDatabaseLS_connectionString": {
-						"value": "[parameters('SqlServerDatabaseLS_connectionString')]"
-					},
-					"SqlServerDatabaseLS_password": {
-						"value": "[parameters('SqlServerDatabaseLS_password')]"
 					},
 					"AzureDataLakeStorageLS_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageLS_properties_typeProperties_url')]"
@@ -192,14 +213,26 @@
 					"AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName')]"
 					},
+					"AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId')]"
+					},
+					"AzureDataLakegen1LS_properties_typeProperties_tenant": {
+						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_tenant')]"
+					},
+					"AzureDataLakegen1LS_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_subscriptionId')]"
+					},
+					"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_resourceGroupName')]"
+					},
 					"FileServerLS_properties_typeProperties_host": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
 					},
 					"FileServerLS_properties_typeProperties_userId": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
-					},
-					"SqlServerDatabaseLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -219,6 +252,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"SqlServerDatabaseLS_connectionString": {
+						"value": "[parameters('SqlServerDatabaseLS_connectionString')]"
+					},
+					"SqlServerDatabaseLS_password": {
+						"value": "[parameters('SqlServerDatabaseLS_password')]"
+					},
 					"SqlServerLS_connectionString": {
 						"value": "[parameters('SqlServerLS_connectionString')]"
 					},
@@ -227,6 +266,9 @@
 					},
 					"SqlServerOnPremLS_connectionString": {
 						"value": "[parameters('SqlServerOnPremLS_connectionString')]"
+					},
+					"SqlServerDatabaseLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
 					},
 					"SqlServerLS_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"

@@ -43,17 +43,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreLS'"
 		},
+		"AzureDataLakegen1LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakegen1LS'"
+		},
 		"FileServerLS_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServerLS'"
-		},
-		"SqlServerDatabaseLS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServerDatabaseLS'"
-		},
-		"SqlServerDatabaseLS_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SqlServerDatabaseLS'"
 		},
 		"AzureDataLakeStorageLS_properties_typeProperties_url": {
 			"type": "string",
@@ -79,15 +75,31 @@
 			"type": "string",
 			"defaultValue": "GayatriRG"
 		},
+		"AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://rohanadlsgen1.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "bbeb7bd7-182c-4c00-bd3f-ba99bd055dbc"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "901abd5a-13f9-4364-8b4d-5347a7565325"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "512f1323-720d-4e25-9570-3014c1c539a7"
+		},
+		"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "RohanRG"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\LTI Training\\ADF"
 		},
 		"FileServerLS_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "gayat"
-		},
-		"SqlServerDatabaseLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
 		}
@@ -241,6 +253,27 @@
 					"tenant": "[parameters('AzureDataLakeStoreLS_properties_typeProperties_tenant')]",
 					"subscriptionId": "[parameters('AzureDataLakeStoreLS_properties_typeProperties_subscriptionId')]",
 					"resourceGroupName": "[parameters('AzureDataLakeStoreLS_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakegen1LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('AzureDataLakegen1LS_properties_typeProperties_dataLakeStoreUri')]",
+					"servicePrincipalId": "[parameters('AzureDataLakegen1LS_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakegen1LS_servicePrincipalKey')]"
+					},
+					"tenant": "[parameters('AzureDataLakegen1LS_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('AzureDataLakegen1LS_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('AzureDataLakegen1LS_properties_typeProperties_resourceGroupName')]"
 				}
 			},
 			"dependsOn": []
@@ -476,30 +509,6 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('FileServerLS_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "OnPremIR",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/OnPremIR')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerDatabaseLS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SqlServerDatabaseLS_connectionString')]",
-					"userName": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SqlServerDatabaseLS_password')]"
 					}
 				},
 				"connectVia": {
