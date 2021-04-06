@@ -787,7 +787,9 @@
 							{
 								"referenceName": "SqlToGen1OutputDataset",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": "Tablefile"
+								}
 							}
 						]
 					}
