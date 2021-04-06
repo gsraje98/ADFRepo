@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select concat(c.FirstName,\" \",c.LastName,\" bought \",p.ProductName,\" from \",c.SalesPerson) from (( [SalesLT].[Customer] as c inner join [SalesLT].[SalesOrderHeader] as h on c.CustomerID=h.CustomerID) INNER join [SalesLT].[Product] as p on p.SalesOrderID = h.SalesOrderID)",
+							"value": "select concat(c.FirstName,\" \",c.LastName,\" bought \",p.ProductName,\" from \",c.SalesPerson)  from ((( [SalesLT].[Customer] as c inner join [SalesLT].[SalesOrderHeader] as h on c.CustomerID=h.CustomerID) INNER join [SalesLT].[SalesOrderDetail] as d on h.SalesOrderID=d.SalesOrderID) inner join  [SalesLT].[Product] as p on p.ProductID = d.ProductID)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
