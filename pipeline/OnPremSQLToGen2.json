@@ -65,7 +65,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "select BusinessEntityID, DepartmentID, ShiftD,StartDate,ModifiedDate from [HumanResources].[EmployeeDepartmentHistory] where DepartmentID=@{item().DepartmentID}",
+										"value": "select BusinessEntityID,DepartmentID,StartDate,ModifiedDate from [HumanResources].[EmployeeDepartmentHistory] where DepartmentID=@{item().DepartmentID}",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
