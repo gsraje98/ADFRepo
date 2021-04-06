@@ -59,6 +59,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"AzureDataLakeStorageLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageLS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\LTI Training\\ADF"
@@ -78,6 +82,10 @@
 		"SqlServerOnPremLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "@{linkedService().user}"
+		},
+		"AzureDataLakeStorageLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://gayatrigen2.dfs.core.windows.net"
 		},
 		"containerUri": {
 			"type": "string",
@@ -127,6 +135,9 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
+					"AzureDataLakeStorageLS_accountKey": {
+						"value": "[parameters('AzureDataLakeStorageLS_accountKey')]"
+					},
 					"FileServerLS_password": {
 						"value": "[parameters('FileServerLS_password')]"
 					},
@@ -141,6 +152,9 @@
 					},
 					"SqlServerLS_password": {
 						"value": "[parameters('SqlServerLS_password')]"
+					},
+					"AzureDataLakeStorageLS_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageLS_properties_typeProperties_url')]"
 					},
 					"FileServerLS_properties_typeProperties_host": {
 						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
@@ -182,6 +196,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'gayatriadf_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "gayatriadf_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'gayatriadf_ArmTemplate_1')]"
 			]
 		}
 	]
