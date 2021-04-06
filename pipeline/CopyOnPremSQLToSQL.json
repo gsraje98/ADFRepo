@@ -43,7 +43,10 @@
 				"outputs": [
 					{
 						"referenceName": "SqlTableFromOnPremSQLDataset",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "OnPremTable"
+						}
 					}
 				]
 			}
