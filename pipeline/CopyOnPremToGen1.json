@@ -50,7 +50,10 @@
 				"outputs": [
 					{
 						"referenceName": "SqlToGen1OutputDataset",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Tablefile"
+						}
 					}
 				]
 			}
