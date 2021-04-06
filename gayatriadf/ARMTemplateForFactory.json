@@ -2760,7 +2760,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetails] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
+								"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetail] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -2787,7 +2787,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SalesOrderDetailsSource",
+								"referenceName": "SalesOrderDataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -2848,7 +2848,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SalesOrderTrackTable')]",
 				"[concat(variables('factoryId'), '/datasets/SalesOrderTableDataset')]",
-				"[concat(variables('factoryId'), '/datasets/SalesOrderDetailsSource')]",
+				"[concat(variables('factoryId'), '/datasets/SalesOrderDataset')]",
 				"[concat(variables('factoryId'), '/datasets/IncrementalLoadDataset')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseSampleNewLS')]"
 			]
@@ -2989,6 +2989,76 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SalesOrderDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseSampleNewLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SalesOrderDetailID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OrderQty",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "ProductID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "UnitPrice",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "UnitPriceDiscount",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "LineTotal",
+						"type": "decimal",
+						"precision": 38,
+						"scale": 6
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "SalesOrderDetail"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseSampleNewLS')]"
 			]
 		}
 	]

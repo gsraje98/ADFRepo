@@ -47,6 +47,74 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SalesOrderDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseSampleNewLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SalesOrderDetailID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OrderQty",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "ProductID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "UnitPrice",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "UnitPriceDiscount",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "LineTotal",
+						"type": "decimal",
+						"precision": 38,
+						"scale": 6
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "SalesOrderDetail"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EmployeeDatasetOnPrim')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -770,7 +838,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetails] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
+								"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetail] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -797,7 +865,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SalesOrderDetailsSource",
+								"referenceName": "SalesOrderDataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -856,6 +924,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SalesOrderDataset')]",
 				"[concat(variables('factoryId'), '/datasets/IncrementalLoadDataset')]"
 			]
 		},
@@ -1135,75 +1204,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/OnPremDepartDataset')]",
 				"[concat(variables('factoryId'), '/datasets/OnPremDeptHistDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyOnPremToGen1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureDataLakeStoreWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SqlServerSourceDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SqlToGen1OutputDataset",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": "Tablefile"
-								}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SqlServerSourceDataset')]"
 			]
 		}
 	]
