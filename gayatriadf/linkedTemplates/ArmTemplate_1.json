@@ -948,7 +948,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "select productid,name,productname,color,standardcost from SalesLT.Product where Color=@{item().color}",
+												"value": "select Name,ProductNumber,StandardCost,ListPrice from SalesLT.Product where Color=@{item().color}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
