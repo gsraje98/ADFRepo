@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseTrialNewLS'"
 		},
+		"SqlServerOnPremLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPremLS'"
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "E:\\LTI Training\\ADF"
@@ -66,6 +70,10 @@
 		"SqlServerLS_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "gayat"
+		},
+		"SqlServerOnPremLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "@{linkedService().user}"
 		},
 		"containerUri": {
 			"type": "string",
@@ -156,6 +164,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SqlServerOnPremLS_connectionString": {
+						"value": "[parameters('SqlServerOnPremLS_connectionString')]"
+					},
+					"SqlServerOnPremLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerOnPremLS_properties_typeProperties_userName')]"
 					}
 				}
 			},

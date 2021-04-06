@@ -38,6 +38,9 @@
 		"AzureSqlDatabaseTrialNewLS_connectionString": {
 			"value": ""
 		},
+		"SqlServerOnPremLS_connectionString": {
+			"value": ""
+		},
 		"FileServerLS_properties_typeProperties_host": {
 			"value": "E:\\LTI Training\\ADF"
 		},
@@ -49,6 +52,9 @@
 		},
 		"SqlServerLS_properties_typeProperties_userName": {
 			"value": "gayat"
+		},
+		"SqlServerOnPremLS_properties_typeProperties_userName": {
+			"value": "@{linkedService().user}"
 		}
 	}
 }
