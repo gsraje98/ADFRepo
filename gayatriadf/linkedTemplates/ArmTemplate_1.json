@@ -910,7 +910,8 @@
 								"referenceName": "ColorDataset",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					},
 					{
