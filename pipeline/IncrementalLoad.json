@@ -80,7 +80,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetails] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
+						"sqlReaderQuery": "select * from [SalesLT].[SalesOrderDetail] where ModifiedDate > '@{activity('TrackTable').output.firstRow.TrackValue}' and ModifiedDate <= '@{activity('SalesOrderTable').output.firstRow.NewTrackValue}'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -107,7 +107,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SalesOrderDetailsSource",
+						"referenceName": "SalesOrderDataset",
 						"type": "DatasetReference"
 					}
 				],
