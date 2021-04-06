@@ -1,0 +1,39 @@
+{
+	"name": "SqlServerOnPremLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"servername": {
+				"type": "String",
+				"defaultValue": "DESKTOP-8SNQEQV\\GAYATRI"
+			},
+			"DatabaseName": {
+				"type": "String",
+				"defaultValue": "AdventureWorks2012"
+			},
+			"UserName": {
+				"type": "String",
+				"defaultValue": "DESKTOP-8SNQEQV\\gayat"
+			},
+			"Password": {
+				"type": "String",
+				"defaultValue": "Seselemento_98"
+			},
+			"user": {
+				"type": "String",
+				"defaultValue": "gayat"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=True;Data Source=@{linkedService().servername};Initial Catalog=@{linkedService().DatabaseName}",
+			"userName": "@{linkedService().user}",
+			"password": "@{linkedService().Password}"
+		},
+		"connectVia": {
+			"referenceName": "OnPremiseIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
