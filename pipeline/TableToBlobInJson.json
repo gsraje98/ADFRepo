@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select c.FirstName+' '+c.LastName+' bought '+p.ProductName+' from '+c.SalesPerson  from ((( [SalesLT].[Customer] as c inner join [SalesLT].[SalesOrderHeader] as h on c.CustomerID=h.CustomerID) INNER join [SalesLT].[SalesOrderDetail] as d on h.SalesOrderID=d.SalesOrderID) inner join  [SalesLT].[Product] as p on p.ProductID = d.ProductID)",
+							"value": "select CONCAT(CONCAT(c.FirstName,' ',c.LastName),' bought ',p.Name,' from ',c.SalesPerson,' worth ', s.LineTotal) as Information from [SalesLT].[Customer] c, [SalesLT].[Product] p, [SalesLT].[SalesOrderDetail] s, [SalesLT].[SalesOrderHeader] h where p.ProductID=s.ProductID and c.CustomerID=h.CustomerId and s.SalesOrderId=h.SalesOrderID",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
