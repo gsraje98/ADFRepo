@@ -357,7 +357,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"container": "jsonoutputcust"
+						"container": "cust"
 					}
 				},
 				"schema": {}
