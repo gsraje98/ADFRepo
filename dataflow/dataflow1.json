@@ -1,0 +1,95 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ProductDataset",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "NoColor"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink3"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink4"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink5"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink6"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink7"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink8"
+				},
+				{
+					"dataset": {
+						"referenceName": "JsonNoColor",
+						"type": "DatasetReference"
+					},
+					"name": "sink9"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ConditionalSplit1"
+				}
+			],
+			"script": "parameters{\n\tcolorarray as string[]\n}\nsource(output(\n\t\tProductID as integer,\n\t\tName as string,\n\t\tProductNumber as string,\n\t\tColor as string,\n\t\tStandardCost as decimal(19,4),\n\t\tListPrice as decimal(19,4),\n\t\tSize as string,\n\t\tWeight as decimal(8,2),\n\t\tProductCategoryID as integer,\n\t\tProductModelID as integer,\n\t\tSellStartDate as timestamp,\n\t\tSellEndDate as timestamp,\n\t\tDiscontinuedDate as timestamp,\n\t\tThumbNailPhoto as binary,\n\t\tThumbnailPhotoFileName as string,\n\t\trowguid as string,\n\t\tModifiedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 split(Color==$colorarray[0],\n\tColor==$colorarray[1],\n\tColor==$colorarray[2],\n\tColor==$colorarray[3],\n\tColor==$colorarray[4],\n\tColor==$colorarray[5],\n\tColor==$colorarray[6],\n\tColor==$colorarray[7],\n\tColor==$colorarray[8],\n\tdisjoint: false) ~> ConditionalSplit1@(NoColor, Black, BlueGrey, Multi, Purple, Red, Silver, SilverBlack, White, NoValue)\nConditionalSplit1@NoColor sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> NoColor\nConditionalSplit1@Black sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1\nConditionalSplit1@White sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink2\nConditionalSplit1@SilverBlack sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink3\nConditionalSplit1@Silver sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink4\nConditionalSplit1@Red sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink5\nConditionalSplit1@Purple sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink6\nConditionalSplit1@Multi sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink7\nConditionalSplit1@BlueGrey sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\trowUrlColumn:'Color',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink8\nConditionalSplit1@NoValue sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink9"
+		}
+	}
+}
