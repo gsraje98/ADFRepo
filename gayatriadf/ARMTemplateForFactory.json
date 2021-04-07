@@ -3621,7 +3621,7 @@
 								"type": "DataFlowReference",
 								"parameters": {
 									"colorarray": {
-										"value": "@activity('Lookup1').output.color",
+										"value": "@activity('Lookup1').output.value",
 										"type": "Expression"
 									}
 								},
