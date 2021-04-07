@@ -468,11 +468,11 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"filename": {
-										"value": "@formatDateTime(utcnow(),'yyyy/mm')",
+										"value": "@concat(utcnow(),'.txt')",
 										"type": "Expression"
 									},
 									"directoryname": {
-										"value": "@concat(utcnow(),'.txt')",
+										"value": "@formatDateTime(utcnow(),'yyyy/mm')",
 										"type": "Expression"
 									}
 								}
