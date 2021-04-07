@@ -5,13 +5,31 @@
 		"factoryName": {
 			"value": "gayatriadf"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"AzureBlobStorageLS_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorageLS_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStoreLS_servicePrincipalKey": {
+			"value": ""
+		},
+		"AzureDataLakegen1LS_servicePrincipalKey": {
 			"value": ""
 		},
 		"AzureSqlDatabaseEmptyLS_connectionString": {
 			"value": ""
 		},
 		"AzureSqlDatabaseLS_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseSampleNewLS_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseTrialNewLS_connectionString": {
 			"value": ""
 		},
 		"AzureSqlLS_connectionString": {
@@ -32,41 +50,8 @@
 		"SqlServerLS_password": {
 			"value": ""
 		},
-		"AzureSqlDatabaseSampleNewLS_connectionString": {
-			"value": ""
-		},
-		"AzureSqlDatabaseTrialNewLS_connectionString": {
-			"value": ""
-		},
 		"SqlServerOnPremLS_connectionString": {
 			"value": ""
-		},
-		"AzureBlobStorage1_connectionString": {
-			"value": ""
-		},
-		"AzureDataLakeStorageLS_accountKey": {
-			"value": ""
-		},
-		"AzureDataLakeStoreLS_servicePrincipalKey": {
-			"value": ""
-		},
-		"AzureDataLakegen1LS_servicePrincipalKey": {
-			"value": ""
-		},
-		"FileServerLS_properties_typeProperties_host": {
-			"value": "E:\\LTI Training\\ADF"
-		},
-		"FileServerLS_properties_typeProperties_userId": {
-			"value": "gayat"
-		},
-		"SqlServerDatabaseLS_properties_typeProperties_userName": {
-			"value": "gayat"
-		},
-		"SqlServerLS_properties_typeProperties_userName": {
-			"value": "gayat"
-		},
-		"SqlServerOnPremLS_properties_typeProperties_userName": {
-			"value": "@{linkedService().user}"
 		},
 		"AzureDataLakeStorageLS_properties_typeProperties_url": {
 			"value": "https://gayatrigen2.dfs.core.windows.net"
@@ -100,6 +85,21 @@
 		},
 		"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
 			"value": "RohanRG"
+		},
+		"FileServerLS_properties_typeProperties_host": {
+			"value": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
+			"value": "gayat"
+		},
+		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"value": "gayat"
+		},
+		"SqlServerLS_properties_typeProperties_userName": {
+			"value": "gayat"
+		},
+		"SqlServerOnPremLS_properties_typeProperties_userName": {
+			"value": "@{linkedService().user}"
 		}
 	}
 }

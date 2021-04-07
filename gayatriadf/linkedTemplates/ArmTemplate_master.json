@@ -7,9 +7,25 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "gayatriadf"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureBlobStorageLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLS'"
+		},
+		"AzureDataLakeStorageLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageLS'"
+		},
+		"AzureDataLakeStoreLS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreLS'"
+		},
+		"AzureDataLakegen1LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakegen1LS'"
 		},
 		"AzureSqlDatabaseEmptyLS_connectionString": {
 			"type": "secureString",
@@ -18,6 +34,14 @@
 		"AzureSqlDatabaseLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLS'"
+		},
+		"AzureSqlDatabaseSampleNewLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseSampleNewLS'"
+		},
+		"AzureSqlDatabaseTrialNewLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseTrialNewLS'"
 		},
 		"AzureSqlLS_connectionString": {
 			"type": "secureString",
@@ -43,53 +67,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServerLS'"
 		},
-		"AzureSqlDatabaseSampleNewLS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseSampleNewLS'"
-		},
-		"AzureSqlDatabaseTrialNewLS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseTrialNewLS'"
-		},
 		"SqlServerOnPremLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerOnPremLS'"
-		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
-		"AzureDataLakeStorageLS_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageLS'"
-		},
-		"AzureDataLakeStoreLS_servicePrincipalKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakeStoreLS'"
-		},
-		"AzureDataLakegen1LS_servicePrincipalKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'servicePrincipalKey' of 'AzureDataLakegen1LS'"
-		},
-		"FileServerLS_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "E:\\LTI Training\\ADF"
-		},
-		"FileServerLS_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "gayat"
-		},
-		"SqlServerDatabaseLS_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "gayat"
-		},
-		"SqlServerLS_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "gayat"
-		},
-		"SqlServerOnPremLS_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "@{linkedService().user}"
 		},
 		"AzureDataLakeStorageLS_properties_typeProperties_url": {
 			"type": "string",
@@ -135,6 +115,26 @@
 			"type": "string",
 			"defaultValue": "RohanRG"
 		},
+		"FileServerLS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "E:\\LTI Training\\ADF"
+		},
+		"FileServerLS_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "gayat"
+		},
+		"SqlServerDatabaseLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "gayat"
+		},
+		"SqlServerLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "gayat"
+		},
+		"SqlServerOnPremLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "@{linkedService().user}"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -162,26 +162,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureBlobStorageLS_connectionString": {
-						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
-					},
-					"AzureSqlDatabaseEmptyLS_connectionString": {
-						"value": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
-					},
-					"AzureSqlDatabaseLS_connectionString": {
-						"value": "[parameters('AzureSqlDatabaseLS_connectionString')]"
-					},
-					"AzureSqlLS_connectionString": {
-						"value": "[parameters('AzureSqlLS_connectionString')]"
-					},
-					"AzureSqlDatabaseSampleNewLS_connectionString": {
-						"value": "[parameters('AzureSqlDatabaseSampleNewLS_connectionString')]"
-					},
-					"AzureSqlDatabaseTrialNewLS_connectionString": {
-						"value": "[parameters('AzureSqlDatabaseTrialNewLS_connectionString')]"
-					},
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AzureBlobStorageLS_connectionString": {
+						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
 					},
 					"AzureDataLakeStorageLS_accountKey": {
 						"value": "[parameters('AzureDataLakeStorageLS_accountKey')]"
@@ -192,8 +177,20 @@
 					"AzureDataLakegen1LS_servicePrincipalKey": {
 						"value": "[parameters('AzureDataLakegen1LS_servicePrincipalKey')]"
 					},
-					"FileServerLS_password": {
-						"value": "[parameters('FileServerLS_password')]"
+					"AzureSqlDatabaseEmptyLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseEmptyLS_connectionString')]"
+					},
+					"AzureSqlDatabaseLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseLS_connectionString')]"
+					},
+					"AzureSqlDatabaseSampleNewLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseSampleNewLS_connectionString')]"
+					},
+					"AzureSqlDatabaseTrialNewLS_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseTrialNewLS_connectionString')]"
+					},
+					"AzureSqlLS_connectionString": {
+						"value": "[parameters('AzureSqlLS_connectionString')]"
 					},
 					"AzureDataLakeStorageLS_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageLS_properties_typeProperties_url')]"
@@ -227,12 +224,6 @@
 					},
 					"AzureDataLakegen1LS_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakegen1LS_properties_typeProperties_resourceGroupName')]"
-					},
-					"FileServerLS_properties_typeProperties_host": {
-						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
-					},
-					"FileServerLS_properties_typeProperties_userId": {
-						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
 					}
 				}
 			},
@@ -251,30 +242,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"SqlServerDatabaseLS_connectionString": {
-						"value": "[parameters('SqlServerDatabaseLS_connectionString')]"
-					},
-					"SqlServerDatabaseLS_password": {
-						"value": "[parameters('SqlServerDatabaseLS_password')]"
-					},
-					"SqlServerLS_connectionString": {
-						"value": "[parameters('SqlServerLS_connectionString')]"
-					},
-					"SqlServerLS_password": {
-						"value": "[parameters('SqlServerLS_password')]"
-					},
-					"SqlServerOnPremLS_connectionString": {
-						"value": "[parameters('SqlServerOnPremLS_connectionString')]"
-					},
-					"SqlServerDatabaseLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
-					},
-					"SqlServerLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
-					},
-					"SqlServerOnPremLS_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServerOnPremLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -295,6 +262,39 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"FileServerLS_password": {
+						"value": "[parameters('FileServerLS_password')]"
+					},
+					"SqlServerDatabaseLS_connectionString": {
+						"value": "[parameters('SqlServerDatabaseLS_connectionString')]"
+					},
+					"SqlServerDatabaseLS_password": {
+						"value": "[parameters('SqlServerDatabaseLS_password')]"
+					},
+					"SqlServerLS_connectionString": {
+						"value": "[parameters('SqlServerLS_connectionString')]"
+					},
+					"SqlServerLS_password": {
+						"value": "[parameters('SqlServerLS_password')]"
+					},
+					"SqlServerOnPremLS_connectionString": {
+						"value": "[parameters('SqlServerOnPremLS_connectionString')]"
+					},
+					"FileServerLS_properties_typeProperties_host": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_host')]"
+					},
+					"FileServerLS_properties_typeProperties_userId": {
+						"value": "[parameters('FileServerLS_properties_typeProperties_userId')]"
+					},
+					"SqlServerDatabaseLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerDatabaseLS_properties_typeProperties_userName')]"
+					},
+					"SqlServerLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerLS_properties_typeProperties_userName')]"
+					},
+					"SqlServerOnPremLS_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerOnPremLS_properties_typeProperties_userName')]"
 					}
 				}
 			},
